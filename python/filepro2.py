@@ -37,3 +37,19 @@ fh1 =open("file3.txt","w")
 fh1.write(sen)
 fh1.close()
 
+
+
+#second way
+fh= open("file1.txt","r")
+fh2= open("file3.txt","w")
+content = fh.readline()
+while(len(content)>0):
+   s = content.split()
+   print(s)
+   for i in s:
+     fh2.write(i+" ")
+   fh2.write("\n")
+   content=fh.readline()
+
+fh.close()
+fh2.close()
