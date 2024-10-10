@@ -1,0 +1,13 @@
+fh = open("file6.txt","a+")
+fh.seek(0)
+line = fh.readline()
+
+ind = line.index("gujarat")
+print(ind) 
+fh.seek(0)
+print(fh.tell())
+fh.seek(ind)
+print(fh.tell())
+print(fh.read())
+fh.write("hello")
+fh.close()
