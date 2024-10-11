@@ -20,43 +20,14 @@
 # fh.close()
 
 #3.way
-def all_occurance(content):
-    indexes = []
-    index = content.find("gujarat")
-    while(index!=-1):
-        indexes.append(index)
-        print(index)
-        index = content.find("gujarat",index+1)
-    return indexes
-fh = open("file4.txt","r+")
-content = fh.read()
-if(content.find("\n")>=0):
-    print(content)
-    print(content.find("\n"))
-    print("contain \n")
-else:
-    print("not contain \n")
 
-for i in all_occurance(content):
-     fh.seek(i)
-     fh.write(" gujrat ")
+fh = open("file6.txt","r+")
+s = fh.read()
+ind = s.find("gujarat")
+while(ind!=-1):
+    print(ind)
+    fh.seek(ind)
+    fh.write("gujrat ")
+    ind = s.find("gujarat",ind+1)
 fh.close()
-
-
-
-
-# indexes = [0]
-# def all_occurance(line):
-#     index = line.find("gujarat")
-#     while(index!=-1):
-#         indexes.append((len(indexes)-1)+index)
-#         index=line.find("gujarat",index+1)
-# fh = open("file6.txt","r+")
-# content = fh.readline()
-# while(len(content)>0):
-#     all_occurance(content)
-#     content = fh.readline()
-# for i in indexes:
-#     fh.seek(i)
-#     fh.write("gujrat ")
-# fh.close()
+print(s)
