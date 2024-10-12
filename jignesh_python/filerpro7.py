@@ -5,7 +5,7 @@ def add(name,phone,github):
     fh.write(name+" "+phone+" "+github+"\n")
     fh.flush()
 def remove(name,phone,github):
-    pattern ="{}\\s{}\\s{}\\s".format(name,phone,github)
+    pattern ="{}\\s{}\\s{}".format(name,phone,github)
     print(pattern)
     fh.seek(0)
     content = fh.read()
@@ -15,7 +15,7 @@ def remove(name,phone,github):
      print(match)
      fh.seek(0)
      pre=fh.read(match.start())
-     fh.seek(match.end()+1)
+     fh.seek(match.end()+2)
      after = fh.read()
      fh2 = open("file8.txt","w")
      fh2.writelines(pre)
@@ -31,24 +31,59 @@ def updatePhone(name,phone):
      content = fh.read()
      match = re.search(pattern,content)
      if match:
-         print(match)
+         pre_content = content[:match.start()]
+         after_content = content[match.end():]
+         specific_content = content[match.start():match.end()]
+         specific_content=specific_content[:specific_content.find(" ")]+" "+phone+specific_content[specific_content.rfind(" "):]
+         fh2 = open("file8.txt","w")
+         fh2.write(pre_content)
+         fh2.write(specific_content)
+         fh2.write(after_content)
+         fh2.close()
      else:
          print("record is not found")
 def updateGithub(name,github):
-    pass
+     pattern = "{}\\s\\w+\\s\\w+".format(name)
+     fh.seek(0)
+     content = fh.read()
+     match = re.search(pattern,content)
+     if match:
+         pre_content = content[:match.start()]
+         after_content = content[match.end():]
+         specific_content = content[match.start():match.end()]
+         specific_content=specific_content[:specific_content.rfind(" ")]+" "+github
+         fh2 = open("file8.txt","w")
+         fh2.write(pre_content)
+         fh2.write(specific_content)
+         fh2.write(after_content)
+         fh2.close()
+     else:
+         print("record is not found")
 def printByName(name):
-    pass
+     pattern = "{}\\s\\w+\\s\\w+".format(name)
+     fh.seek(0)
+     content = fh.read()
+     match = re.search(pattern,content)
+     if match:
+         specific_content = content[match.start():match.end()]
+         print(specific_content)
+     else:
+         print("record is not found")
 def printAll():
-    pass
+    fh.seek(0)
+    content = fh.read()
+    print("Print All content :\n"+content)
 def readAll():
-    pass
+    fh.seek(0)
+    content = fh.read()
+    print("Read All content : \n"+content)
 l=True
 while l:
     print("1.ADD")
     print("2.Remove")
     print("3.UpdatePhone")
     print("4.UpdateGithub")
-    print("5.printNameoffriend")
+    print("5.printByName")
     print("6.PrintAll")
     print("7.ReadAll")
     print("8.exit")
@@ -65,15 +100,19 @@ while l:
         remove(name,phone,github)
     elif(choice == 3):
          name = input("Enter Name : ")
-         updatePhone(name)
+         mobile_no = input("Enter New Mobile NO")
+         updatePhone(name,mobile_no)
     elif(choice ==4):
-        pass
+        name = input("Enter Name : ")
+        github = input("Enter New GitHub Id : ")
+        updateGithub(name,github)
     elif(choice ==5):
-        pass
+        name= input("Enter Name : ")
+        printByName(name)
     elif(choice ==6):
-        pass
+        printAll()
     elif(choice == 7):
-        pass
+        readAll()
     elif(choice == 8):
         l=False
     else:
